@@ -1,0 +1,7 @@
+###
+POST http://localhost/api/task 
+Content-Type: application/json
+
+{
+    "name":"Test Task" 
+}
