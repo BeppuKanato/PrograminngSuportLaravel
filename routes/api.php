@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Cache;
 
 use App\Models\Task;
 
+use App\Http\Controllers\Auth\SignUpController;
+use App\Http\Controllers\Test\Auth\TestSignUpController;
+
 use function PHPUnit\Framework\isJson;
 
 /*
@@ -26,7 +29,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/task', function (Request $request) {
-
     //送られて来たデータを抽出
     $jsonData = array_keys($request->all())[0];
 
@@ -63,3 +65,32 @@ Route::post('/task', function (Request $request) {
         'name' => $task->name,
     ], 200);
 });
+
+//.httpでのテスト用
+Route::post('/task/test', function (Request $request) {
+    $validator = Validator::make($request->all(), [  // $dataをバリデーターに渡す
+        'name' => 'required|max:255',
+    ]);
+
+    if ($validator->fails()) {
+        Log::error("Add task failed.");
+        return response()->json([
+            'error' => $validator->errors()
+        ], 400);
+    }
+
+    $task = new Task;
+    $task->name = $request->name;  // $dataから'name'を取得
+    //DBに保存
+    $task->save();
+    // Clear the cache
+    Cache::flush();
+
+    return response()->json([
+        'id' => $request->id,
+        'name' => $task->name,
+    ], 200);
+});
+
+Route::post('/sign-up', 'App\Http\Controllers\Auth\SignUpController@signUp');
+Route::post('/sign-up/test', 'App\Http\Controllers\Test\Auth\TestSignUpController@signUp');

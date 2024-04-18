@@ -1,7 +1,15 @@
 ###
-POST http://localhost/api/task 
+POST http://localhost/api/task/test 
 Content-Type: application/json
 
 {
     "name":"Test Task" 
+}
+###
+
+POST http://localhost/api/sign-up/test
+Content-Type: application/json
+
+{
+    "mail" : "s21a1055@bene.fit.ac.jp"
 }
