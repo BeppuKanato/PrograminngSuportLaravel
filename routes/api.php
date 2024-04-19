@@ -93,4 +93,3 @@ Route::post('/task/test', function (Request $request) {
 });
 
 Route::post('/sign-up', 'App\Http\Controllers\Auth\SignUpController@signUp');
-Route::post('/sign-up/test', 'App\Http\Controllers\Test\Auth\TestSignUpController@signUp');

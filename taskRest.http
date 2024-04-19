@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost/api/sign-up/test
+POST http://localhost/api/sign-up
 Content-Type: application/json
 
 {
