@@ -10,7 +10,7 @@ class SignUpController extends Controller
 {
     public function signUp(Request $request)
     {
-        var_dump('正しい値です');
+        var_dump('正しい値ですやったね');
     }
 }
 
