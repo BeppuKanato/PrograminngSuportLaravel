@@ -11,5 +11,8 @@ POST http://localhost/api/sign-up
 Content-Type: application/json
 
 {
-    "mail" : "s21a1055@bene.fit.ac.jp"
+    "name" : "別府奏音",  
+    "mail" : "s21a1055@bene.fit.ac.jp", 
+    "password" : "testPass",
+    "checkPassword" : "testPass"
 }

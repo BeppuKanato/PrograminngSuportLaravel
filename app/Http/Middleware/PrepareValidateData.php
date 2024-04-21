@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+use function PHPUnit\Framework\isJson;
 use function PHPUnit\Framework\isNull;
 
 class PrepareValidateData
@@ -30,8 +31,8 @@ class PrepareValidateData
     //jsonデータをデコード
     function decodeData(string $jsonString)
     {
-        $result = json_decode($jsonString, true, 512, JSON_THROW_ON_ERROR);
+        $result = json_decode($jsonString, true, 512, JSON_THROW_ON_ERROR);  
 
-        return $result;        
+        return $result;
     }
 }
