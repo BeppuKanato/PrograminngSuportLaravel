@@ -22,8 +22,8 @@ POST  http://localhost/api/complete-auth
 Content-Type: application/json
 
 {
-    "email" : "s21a1055@bene.fit.ac.jp",
-    "code" : "360799"
+    "id" : 1,
+    "code" : "403285"
 }
 
 ###
@@ -32,5 +32,15 @@ Content-Type: application/json
 
 {
     "email" : "s21a1055@bene.fit.ac.jp",
+    "password" : "testPass"
+}
+
+###
+POST http://localhost/api/sign-out
+Content-Type: application/json
+
+{
+    "id" : 1,
+    "accessToken" : "55CABSHFxJ9CkXwjDBOhpqRBfBghLay8E84QukGRcpDNnzWyG2mnt9H0U0eEzMWc",
     "password" : "testPass"
 }

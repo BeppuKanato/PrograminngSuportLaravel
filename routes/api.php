@@ -95,3 +95,4 @@ Route::post('/task/test', function (Request $request) {
 Route::post('/sign-up', 'App\Http\Controllers\Auth\SignUpController@signUp');
 Route::post('/complete-auth', 'App\Http\Controllers\Auth\CompleteAuthController@checkAuthCode');
 Route::post('/sign-in', 'App\Http\Controllers\Auth\SignInController@signIn');
+Route::post('/sign-out', 'App\Http\Controllers\Auth\SignOutController@signOut');
