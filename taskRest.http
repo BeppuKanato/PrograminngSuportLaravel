@@ -12,7 +12,25 @@ Content-Type: application/json
 
 {
     "name" : "別府奏音",  
-    "mail" : "s21a1055@bene.fit.ac.jp", 
+    "email" : "s21a1055@bene.fit.ac.jp", 
     "password" : "testPass",
     "checkPassword" : "testPass"
+}
+
+###
+POST  http://localhost/api/complete-auth
+Content-Type: application/json
+
+{
+    "email" : "s21a1055@bene.fit.ac.jp",
+    "code" : "360799"
+}
+
+###
+POST http://localhost/api/sign-in
+Content-Type: application/json
+
+{
+    "email" : "s21a1055@bene.fit.ac.jp",
+    "password" : "testPass"
 }

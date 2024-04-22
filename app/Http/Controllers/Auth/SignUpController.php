@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\PrepareValidateData;
 use Illuminate\Http\Request;
-use App\Http\Requests\SignUpRequest;
+use App\Http\Requests\Auth\SignUpRequest;
 use App\Mail\AuthCodeMail;
 use App\Models\AuthCode;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
-use function PHPUnit\Framework\isNull;
 
 class SignUpController extends Controller
 {
@@ -26,11 +24,16 @@ class SignUpController extends Controller
     }
     public function signUp(SignUpRequest $request)
     {
-        $this->sendAuthMail('s21a1055@bene.fit.ac.jp', '000000');
+        die;
+        $userData = $this->createUserRecord($request);
 
-        $userId = $this->createUserRecord($request);
+        $userId = $userData['userId'];
+        $userEmail = $userData['userEmail'];
+
         $code = $this->createAuthCode();
         $this->createAutuCodeRecord($code, $userId);
+        $this->sendAuthMail($userEmail, $code);
+        return 'ユーザデータの登録に成功しました';
     }
 
     //userテーブルにレコードを作成
@@ -43,6 +46,8 @@ class SignUpController extends Controller
             die;
         }
 
+        var_dump('新規にユーザを作成します');
+
         $userModel = new User();
 
         $userModel->name = $request->name;
@@ -52,7 +57,7 @@ class SignUpController extends Controller
 
         $userModel->save();
 
-        return $userModel->id;
+        return ['userId' => $userModel->id, 'userEmail' => $userModel->email];
     }
 
     //ユーザが登録済みかを確認
@@ -64,7 +69,8 @@ class SignUpController extends Controller
                             ->first();
 
         $result = false;
-        if ($searchResult == null) {
+        //ユーザが存在してたら
+        if ($searchResult != null) {
             $result = true;
         }
 
@@ -92,6 +98,8 @@ class SignUpController extends Controller
         $authCodeModel->expiry = $expiry;
 
         $authCodeModel->save();
+
+        var_dump('auth-codeを保存しました');
     }
 
     //認証メールを送信
@@ -101,7 +109,6 @@ class SignUpController extends Controller
             ->send(new AuthCodeMail($code));
 
         var_dump('メールを送信しました');
-        die;
     }
 }
 
