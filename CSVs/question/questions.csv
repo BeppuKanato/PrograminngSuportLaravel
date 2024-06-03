@@ -1,0 +1,35 @@
+﻿id,language_id,difficulty_id,question_type_id,description,content
+1,3,1,1,次のコードを実行した時のsumの値を選択肢から選べ,"int a = 1, b = 1;
+int sum = 0;
+sum = a + b;"
+2,3,1,1,次のコードを実行した時のsumの値を選択肢から選べ,"int a = 5;
+int b = 5;
+int sum = 0;
+
+sum *= a;"
+3,3,1,3,5回ループするコードになるように、空欄に入る文字を入力せよ,"for (int i = 0; i < ①; i++)
+{
+}　"
+4,3,1,3,10回ループするコードになるように、各番号に入る文字を入力せよ,"int count = 0;
+while (true)
+{
+　① (count == 10)
+　{
+　　②
+　}
+　count++;
+}"
+5,3,1,2,次のコードを実行した時のsumの値を入力せよ,"int sum = 0;
+for (int i = 0; i < 5; i++)
+{
+　sum += i
+}"
+6,3,1,2,次のコードを実行した時に表示される文字を答えよ,"int value = 104;
+if (value % 2 == 0)
+{
+　console.log('A');
+}
+else 
+{
+　console.log('B');
+}"

@@ -1,0 +1,26 @@
+@startuml dungeon
+!define ENTITY class
+!define PRIMARY_KEY (PK)
+!define FORIGN_KEY (FK)
+!define AUTO_INCREMENT (AI)
+!define NOT_NULL(NN)
+
+
+ENTITY "dungeons" as dungeons {
+    *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    varchar(255) | name NOT_NULL
+    text | description NOT_NULL
+}
+
+ENTITY "dungeon_questions" as dungeon_questions {
+    *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    int | dungeon_id FORIGN_KEY
+    int | question_id FORIGN_KEY
+}
+
+dungeons ||--o{ dungeon_questions
+dungeon_questions ||--d|| questions
+
+@enduml

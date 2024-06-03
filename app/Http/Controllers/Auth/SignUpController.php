@@ -24,7 +24,6 @@ class SignUpController extends Controller
     }
     public function signUp(SignUpRequest $request)
     {
-        die;
         $userData = $this->createUserRecord($request);
 
         $userId = $userData['userId'];

@@ -10,12 +10,13 @@ use App\Models\User;
 use App\Models\PersonalAccessToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class SignInController extends Controller
 {
     function __construct() 
     {
-        $this->middleware(PrepareValidateData::class)->only('');
+        $this->middleware(PrepareValidateData::class)->only('signIn');
     }
 
     public function signIn(SignInRequest $request)
@@ -27,7 +28,7 @@ class SignInController extends Controller
             die;
         }
 
-        $this->createAccessToken($authResult);
+        return response()->json($authResult);
     }
     //ユーザ認証を行う
     function checkUser(string $email, string $password) 
@@ -44,7 +45,14 @@ class SignInController extends Controller
             //パスワード認証を通った場合
             if ($checkPassword) 
             {
-                $result = $checkUserResult->id;
+                $checkUserResult->remember_token = $this->createRememberToken();
+                $checkUserResult->save();
+                $result = [
+                    'id' => $checkUserResult->id,
+                    'email' => $checkUserResult->email,
+                    'name' => $checkUserResult->name,
+                    'remember_token' => $checkUserResult->remember_token
+                ];
             }
         }
 
@@ -62,8 +70,8 @@ class SignInController extends Controller
         return $result;
     }
     //アクセストークンを作成する
-    function createAccessToken(int $id) 
+    function createRememberToken() 
     {
-
+        return Str::random(60);
     }
 }

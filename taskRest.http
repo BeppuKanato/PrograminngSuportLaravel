@@ -34,3 +34,28 @@ Content-Type: application/json
     "email" : "s21a1055@bene.fit.ac.jp",
     "password" : "testPass"
 }
+
+###
+POST http://localhost/api/auth-remember-token
+Content-Type: application/json
+
+{
+    "id" : "1",
+    "rememberToken" : "uIZwENaCDDLZKNAOsHeYIskvYVEdeiGPmqFsNMsUh8cyl5OHff4vLZFxfUgn"
+}
+
+###
+POST http://localhost/api/question
+Content-Type: application/json
+
+{
+    "id" : "1"
+}
+
+###
+POST http://localhost/api/dungeon
+Content-Type: application/json
+
+{
+    "id" : "1"
+}

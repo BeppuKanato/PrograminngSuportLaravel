@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use function PHPUnit\Framework\isJson;
 use function PHPUnit\Framework\isNull;
 
+//受信データの形式を変換するミドルウェア
 class PrepareValidateData
 {
     /**
