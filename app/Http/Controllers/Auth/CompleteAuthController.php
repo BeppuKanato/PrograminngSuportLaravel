@@ -19,7 +19,7 @@ class CompleteAuthController extends Controller
 
     public function checkAuthCode(CompleteAuthRequest $request) 
     {
-        $result = $this->getAuthResult($request->email, $request->code);
+        $result = $this->getAuthResult($request->id, $request->code);
 
         if ($result == null) 
         {
@@ -31,12 +31,13 @@ class CompleteAuthController extends Controller
         $this->deleteAuthCode($result->email);
     }
     //認証可能なユーザを取得
-    function getAuthResult(string $email, string $code) 
+    function getAuthResult(int $id, string $code) 
     {
         $result = AuthCode::join('users', 'auth_codes.user_id', '=', 'users.id')
-                            ->where('users.email', $email)
+                            ->where('users.id', $id)
                             ->where('auth_codes.code', $code)
                             ->where('auth_codes.expiry', '>', Carbon::now())
+                            ->select('users.id', 'users.email')
                             ->first();
         
         var_dump('認証可能ユーザを確認しました');

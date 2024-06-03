@@ -31,14 +31,14 @@ class SignUpController extends Controller
 
         $code = $this->createAuthCode();
         $this->createAutuCodeRecord($code, $userId);
-        $this->sendAuthMail($userEmail, $code);
+        $this->sendAuthMail($request->email, $code);
         return 'ユーザデータの登録に成功しました';
     }
 
     //userテーブルにレコードを作成
-    function createUserRecord(SignUpRequest $request)
+    function createUserRecord(string $name, string $email, string $password)
     {
-        $isExist = $this->checkUserExist($request->email);
+        $isExist = $this->checkUserExist($email);
 
         if ($isExist) {
             var_dump('既に登録されています');
@@ -49,31 +49,23 @@ class SignUpController extends Controller
 
         $userModel = new User();
 
-        $userModel->name = $request->name;
-        $userModel->email = $request->email;
+        $userModel->name = $name;
+        $userModel->email = $email;
         //ハッシュ化して保存
-        $userModel->password = Hash::make($request->password);
+        $userModel->password = Hash::make($password);
 
         $userModel->save();
 
-        return ['userId' => $userModel->id, 'userEmail' => $userModel->email];
+        return $userModel->id;
     }
 
     //ユーザが登録済みかを確認
     //登録済みならTrue
     function checkUserExist(string $email) 
     {
-        $searchResult = User::where('email', $email)
+        return User::where('email', $email)
                             ->whereNull('deleted_at')
-                            ->first();
-
-        $result = false;
-        //ユーザが存在してたら
-        if ($searchResult != null) {
-            $result = true;
-        }
-
-        return $result;
+                            ->exists();
     }
 
     //認証コードを生成
