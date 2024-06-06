@@ -1,0 +1,15 @@
+﻿id,expalin,sentence
+1,コードを実行した時のresultの値を選択肢から選択,"int result = 0;
+for(int i = 0; i < 10; i++)
+{
+    result += 1;
+}"
+2,コードを実行した時に表示される値を選択しから選択,"int inputValue = 13;
+if (inputValue % 2 == 0)
+{
+    Console.WriteLine(""True"");
+}
+else
+{
+    Console.WriteLine(""False"");
+}"

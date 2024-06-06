@@ -1,0 +1,66 @@
+@startuml question
+!define ENTITY class
+!define PRIMARY_KEY (PK)
+!define FOREIGN_KEY (FK)
+!define AUTO_INCREMENT (AI)
+!define NOT_NULL(NN)
+
+ENTITY "questions" as questions {
+    *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    int | language_id NOT_NULL FOREIGN_KEY
+    int | difficulty_id NOT_NULL FOREIGN_KEY
+    int | question_type_id NOT_NULL FOREIGN_KEY
+    varchar(255) | description NOT_NULL
+    text | content NOT_NULL
+}
+
+ENTITY "answers" as answers{
+    *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    int | question_id FOREIGN_KEY NOT_NULL
+    varchar(255) | content NOT_NULL
+}
+
+ENTITY "select_branchs" as select_branchs {
+    *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    int | question_id FOREIGN_KEY NOT_NULL
+    varchar(255) | content NOT_NULL
+}
+
+ENTITY "fill_correct_infos" as fill_correct_infos {
+    *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    int | question_id FOREIGN_KEY NOT_NULL
+    int | answer_id FOREIGN_KEY 
+    int | blank_number
+}
+
+
+ENTITY "language_code" as language_code {
+    *int | code PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    varchar(255) | language NOT_NULL
+}
+
+ENTITY "question_type_code" as question_type_code {
+    *int | code PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    varchar(255) | type NOT_NULL
+}
+
+ENTITY "difficulty_code" as difficulty_code {
+    *int | code PRIMARY_KEY AUTO_INCREMENT NOT_NULL
+    --
+    varchar(255) | difficulty NOT_NULL
+}
+
+questions ||--o{answers
+questions ||--o{select_branchs
+questions ||--o{fill_correct_infos
+questions ||--u|| difficulty_code
+questions ||--u|| language_code
+questions ||--u|| question_type_code
+
+@enduml

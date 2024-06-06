@@ -93,4 +93,8 @@ Route::post('/task/test', function (Request $request) {
 });
 
 Route::post('/sign-up', 'App\Http\Controllers\Auth\SignUpController@signUp');
-Route::post('/sign-up/test', 'App\Http\Controllers\Test\Auth\TestSignUpController@signUp');
+Route::post('/complete-auth', 'App\Http\Controllers\Auth\CompleteAuthController@checkAuthCode');
+Route::post('/sign-in', 'App\Http\Controllers\Auth\SignInController@signIn');
+Route::post('/auth-remember-token', 'App\Http\Controllers\Auth\AuthRememberTokenController@authRememberToken');
+Route::post('/question', 'App\Http\Controllers\Question\QuestionController@qustionController');
+Route::post('/dungeon', 'App\Http\Controllers\Dungeon\DungeonController@getDungeonData');

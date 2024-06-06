@@ -3,11 +3,15 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
+use function PHPUnit\Framework\isJson;
 use function PHPUnit\Framework\isNull;
 
+//受信データの形式を変換するミドルウェア
 class PrepareValidateData
 {
     /**
@@ -17,37 +21,18 @@ class PrepareValidateData
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $data = $this->decodeData(array_keys($request->all()));
-
-        //正しいフォーマットの場合はそのまま
-        if (isNull($data)) {
-            return $next($request);
-        }
-
-        $formattedData = $this->dataFormat($data);
+        $decodeData = $this->decodeData($request->getContent());
 
         //正しいフォーマットのデータに置き換える
-        $request->replace($formattedData);
+        $request->replace($decodeData);
 
         return $next($request);
     }
     
     //jsonデータをデコード
-    function decodeData(array $responceData)
+    function decodeData(string $jsonString)
     {
-        $jsonData = $responceData[0];
-
-        $result = json_decode($jsonData);
-
-        return $result;        
-    }
-
-    //データを整形する
-    function dataFormat($data) 
-    {
-        $result = array_map(function($value) {
-            return $value;
-        }, $data);
+        $result = json_decode($jsonString, true, 512, JSON_THROW_ON_ERROR);  
 
         return $result;
     }
