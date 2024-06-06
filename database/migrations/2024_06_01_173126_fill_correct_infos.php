@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('fill_correct_infos', function(Blueprint $table) {
             $table->id()->comment('空欄の番号と回答の組み合わせのユニークID');
-            $table->foreignId('questions_id')->constrained('questions')->onDelete('cascade')->nullable(false)->comment("問題のID");
+            $table->foreignId('question_id')->constrained('questions')->onDelete('cascade')->nullable(false)->comment("問題のID");
             $table->foreignId('answer_id')->constrained('answers')->onDelete('cascade')->nullable(false)->comment("正解のID");
             $table->unsignedInteger('blank_number')->nullable(false)->comment('空欄の番号');
         });

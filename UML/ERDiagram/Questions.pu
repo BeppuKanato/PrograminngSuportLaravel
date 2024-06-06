@@ -18,21 +18,21 @@ ENTITY "questions" as questions {
 ENTITY "answers" as answers{
     *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
     --
-    int | questions_id FOREIGN_KEY NOT_NULL
+    int | question_id FOREIGN_KEY NOT_NULL
     varchar(255) | content NOT_NULL
 }
 
 ENTITY "select_branchs" as select_branchs {
     *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
     --
-    int | questions_id FOREIGN_KEY NOT_NULL
+    int | question_id FOREIGN_KEY NOT_NULL
     varchar(255) | content NOT_NULL
 }
 
 ENTITY "fill_correct_infos" as fill_correct_infos {
     *int | id PRIMARY_KEY AUTO_INCREMENT NOT_NULL
     --
-    int | questions_id FOREIGN_KEY NOT_NULL
+    int | question_id FOREIGN_KEY NOT_NULL
     int | answer_id FOREIGN_KEY 
     int | blank_number
 }

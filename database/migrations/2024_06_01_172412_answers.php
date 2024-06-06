@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('answers', function(Blueprint $table) {
             $table->id()->comment('答えのユニークID');
-            $table->foreignId('questions_id')->constrained('questions')->onDelete('cascade')->nullable(false)->comment("問題のID");
+            $table->foreignId('question_id')->constrained('questions')->onDelete('cascade')->nullable(false)->comment("問題のID");
             $table->string('content')->nullable(false)->comment('正解の内容');
         });
     }
